@@ -57,8 +57,3 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["src"]
-omit = [
-    "*/tests/*",
-    "*/__pycache__/*",
-    "*/.*",
-]
