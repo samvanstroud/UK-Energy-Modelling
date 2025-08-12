@@ -4,3 +4,9 @@
 *.xlsx
 *.nbc
 *.nbi
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+.pytest_cache/

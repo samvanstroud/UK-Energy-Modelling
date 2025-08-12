@@ -1,5 +1,10 @@
 name: Test
 on: [push, pull_request]
+
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,8 +14,15 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
 
-      - name: Run tests
-        run: uv run pytest -s
+      - name: Run tests with coverage
+        run: uv run pytest
+
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-xml-coverage-path: ./coverage.xml
+          title: Coverage Report
+          badge-title: Coverage
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -18,3 +30,9 @@ jobs:
           name: test-results
           if-no-files-found: error
           path: tests/output/**/*.png
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov/
