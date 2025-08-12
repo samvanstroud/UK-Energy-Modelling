@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from src.data.hdd import hdd_era5
 
 from src import matplotlib_style  # noqa: F401
 from src.data import historical_demand
@@ -102,7 +101,7 @@ def test_gas_demand() -> None:
 
 
 def test_hdd_era5() -> None:
-    df = hdd_era5()
+    df = historical_demand.hdd_era5()
     assert df is not None
     assert not df.empty
     assert len(df.columns) == 1
@@ -111,8 +110,8 @@ def test_hdd_era5() -> None:
 
 
 def test_hdd_era5_resample() -> None:
-    df_raw = hdd_era5()
-    df = hdd_era5(resample="ME")
+    df_raw = historical_demand.hdd_era5()
+    df = historical_demand.hdd_era5(resample="ME")
     assert df is not None
     assert not df.empty
     assert len(df.columns) == 1
@@ -122,7 +121,7 @@ def test_hdd_era5_resample() -> None:
 
 
 def test_hdd_era5_plot() -> None:
-    df = hdd_era5()
+    df = historical_demand.hdd_era5()
     plt.figure()
     plt.plot(df.index, df["hdd"], label="HDD2")
     plt.xlabel("Date")
